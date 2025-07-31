@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-07-26T08:42:33.092Z",
+  "description": "Authentication system backup before cleanup",
+  "files": [
+    "src/api/authIssueUserApi/memberApi.js",
+    "src/api/authIssueUserApi/authApi.js",
+    "src/api/authIssueUserApi/userApi.js",
+    "src/api/authIssueUserApi/issueApi.js",
+    "src/api/authIssueUserApi/axiosInstance.js",
+    "src/api/authIssueUserApi/tokenUtil.js",
+    "src/components/mypage/useInitAuth.js",
+    "src/components/mypage/DebugAuthOverlay.jsx",
+    "src/components/mypage/useLogout.js",
+    "src/layout/Header.jsx",
+    "src/pages/member/Login.jsx",
+    "src/pages/community/Issue.jsx",
+    "src/components/community/issue/IssueWrite.jsx",
+    "src/components/community/issue/IssueDetail.jsx",
+    "src/components/community/issue/IssueUpdate.jsx",
+    "src/slices/loginSlice.js",
+    "src/utils/memberJwtUtil/validatos.js",
+    "src/utils/memberJwtUtil/jwtUtilsOld.js",
+    "src/utils/memberJwtUtil/axiosConfigOld.js",
+    "src/store/store.js",
+    "src/App.jsx"
+  ],
+  "totalFiles": 21
+}
