@@ -49,10 +49,27 @@ console.log("🔍 Redux init - isValidUser breakdown:", {
   hasEmail: !!storeUser?.email,
 });
 
-const initState = {
-  isLoggedIn: isValidUser, // Only check user data, not tokens
-  user: isValidUser ? storeUser : { ...emptyUser },
+// Add a more robust initialization check
+const initializeAuthState = () => {
+  const storeUser = getUserData();
+  
+  // Only consider user logged in if we have valid user data
+  const isValidUser = storeUser && storeUser.nickname && storeUser.email;
+  
+  console.log("🔍 Redux init - isValidUser:", isValidUser);
+  console.log("🔍 Redux init - isValidUser breakdown:", {
+    hasStoreUser: !!storeUser,
+    hasNickname: !!storeUser?.nickname,
+    hasEmail: !!storeUser?.email,
+  });
+
+  return {
+    isLoggedIn: isValidUser,
+    user: isValidUser ? storeUser : { ...emptyUser },
+  };
 };
+
+const initState = initializeAuthState();
 
 const loginSlice = createSlice({
   name: "loginSlice",

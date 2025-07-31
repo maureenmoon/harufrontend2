@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../slices/loginSlice";
 import { logoutMember } from "../../api/authIssueUserApi/memberApi";
@@ -18,8 +18,16 @@ const useLogout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Get user data from Redux state
+  const { user } = useSelector((state) => state.login);
+
   const doLogout = async () => {
     console.log("🔓 Logging out...");
+    console.log("🔍 User info before logout:", {
+      nickname: user?.nickname,
+      role: user?.role,
+      email: user?.email,
+    });
     console.log("🔍 Before logout - all cookies:");
     debugAllCookies();
     console.log("🔍 Before logout - specific cookies:", {
@@ -32,7 +40,7 @@ const useLogout = () => {
     });
 
     try {
-      // Call backend logout endpoint to clear cookies (when backend supports it)
+      // Call backend logout endpoint to clear cookies
       console.log("📡 Calling backend logout...");
       await logoutMember();
       console.log("✅ Backend logout successful");
@@ -44,7 +52,7 @@ const useLogout = () => {
       console.log("🧹 Clearing all app cookies...");
       removeAllAppCookies();
 
-      // Clear localStorage to prevent hybrid state (comprehensive cleanup)
+      // Clear localStorage to prevent hybrid state
       console.log("🧹 Clearing localStorage...");
       const authKeys = [
         "accessToken",
@@ -71,6 +79,25 @@ const useLogout = () => {
       // Clear Redux state
       console.log("🧹 Clearing Redux state...");
       dispatch(logout());
+
+      // Force clear any remaining cookies with multiple attempts
+      console.log("🧹 Force clearing cookies...");
+      const cookiesToClear = [
+        "frontendUserData",
+        "userData",
+        "accessToken",
+        "refreshToken",
+        "todayCalories",
+        "todayNutrients",
+        "mealData",
+      ];
+
+      cookiesToClear.forEach((cookieName) => {
+        // Clear with different path variations
+        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`;
+        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${window.location.hostname};`;
+      });
 
       console.log("🔍 After logout - all cookies:");
       debugAllCookies();

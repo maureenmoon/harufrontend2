@@ -1,4 +1,5 @@
 import ChangePassword from "../pages/member/ChangePassword";
+import ChangePasswordLoggedIn from "../pages/member/ChangePasswordLoggedIn";
 import Login from "../pages/member/Login";
 import SearchNickname from "../pages/member/SearchNickname";
 import Signup from "../pages/member/Signup";
@@ -15,7 +16,11 @@ const memberRoutes = [
   },
   {
     path: "reset-password",
-    element: <ChangePassword />,
+    element: <ChangePassword />, // For forgotten password
+  },
+  {
+    path: "change-password",
+    element: <ChangePasswordLoggedIn />, // For logged-in users
   },
   {
     path: "search-nickname",

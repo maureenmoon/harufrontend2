@@ -20,7 +20,7 @@ import ProfileImage from "../../components/mypage/ProfileImage";
 import DebugAuthOverlay from "../../components/mypage/DebugAuthOverlay";
 import useLogout from "../../utils/memberJwtUtil/useLogout";
 import InfoList from "../../components/mypage/InfoList";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function MyPage() {
   const dispatch = useDispatch();
@@ -28,6 +28,7 @@ export default function MyPage() {
   const [stats, setStats] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const logout = useLogout();
+  const navigate = useNavigate();
 
   // Debug: Log current user data
   console.log("MyPage - Current user data:", currentUser);
@@ -247,6 +248,12 @@ export default function MyPage() {
             >
               프로필 수정
             </Link>
+            <button
+              onClick={() => navigate("/member/change-password")}
+              className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 text-center"
+            >
+              비밀번호 변경
+            </button>
             <Link
               to="/mypage/withdraw"
               className="px-4 py-2 text-sm font-medium text-red-600 border border-red-600 rounded-md hover:bg-red-50 text-center"

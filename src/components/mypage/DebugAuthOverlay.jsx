@@ -20,6 +20,7 @@ export default function DebugAuthOverlay() {
   const [isChecking, setIsChecking] = useState(false);
   const [cookieStatus, setCookieStatus] = useState({});
   const [debugMode, setDebugModeState] = useState(false);
+  const [isVisible, setIsVisible] = useState(false); // New state for panel visibility
 
   // Check cookie status
   const checkCookieStatus = () => {
@@ -39,6 +40,11 @@ export default function DebugAuthOverlay() {
     const newMode = !debugMode;
     setDebugModeState(newMode);
     setDebugMode(newMode);
+  };
+
+  // Toggle panel visibility
+  const togglePanelVisibility = () => {
+    setIsVisible(!isVisible);
   };
 
   useEffect(() => {
@@ -69,8 +75,11 @@ export default function DebugAuthOverlay() {
     return () => clearInterval(interval);
   }, []);
 
-  // Only show in development
+  // Only show in development AND for ADMIN users
   if (process.env.NODE_ENV === "production") return null;
+
+  // Only show for ADMIN users
+  if (!isLoggedIn || user?.role !== "ADMIN") return null;
 
   return (
     <div className="fixed bottom-4 right-4 bg-black bg-opacity-75 text-white p-3 rounded-lg text-xs z-50">

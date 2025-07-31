@@ -196,7 +196,7 @@ export default function Login() {
           <Link to="/member/search-nickname" className="hover:text-blue-600">
             닉네임 찾기
           </Link>
-          <Link to="/member/change-password" className="hover:text-blue-600">
+          <Link to="/member/reset-password" className="hover:text-blue-600">
             비밀번호 변경
           </Link>
           <Link to="/member/signup" className="hover:text-blue-600">
